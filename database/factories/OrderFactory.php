@@ -1,18 +1,21 @@
 <?php
 
+declare(strict_types=1);
+
+
 namespace Database\Factories;
 
-use App\Models\User;
+use App\Models\Order;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-class UserFactory extends Factory
+class OrderFactory extends Factory
 {
     /**
      * The name of the factory's corresponding model.
      *
      * @var string
      */
-    protected $model = User::class;
+    protected $model = Order::class;
 
     /**
      * Define the model's default state.
@@ -22,9 +25,9 @@ class UserFactory extends Factory
     public function definition()
     {
         return [
-            'name' => $this->faker->name,
-            'email' => $this->faker->unique()->safeEmail,
-            'password' => $this->faker->password,
+            'product_name' => $this->faker->shuffleString,
+            'quantity' => $this->faker->numberBetween(0, 1000),
+            'total_price' => $this->faker->randomFloat(2, 9, 99),
         ];
     }
 }
