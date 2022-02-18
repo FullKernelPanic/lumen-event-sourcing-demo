@@ -61,6 +61,7 @@ $app->singleton(
 
 $app->configure('app');
 $app->configure('database');
+$app->configure('queue');
 
 /*
 |--------------------------------------------------------------------------
@@ -95,6 +96,7 @@ $app->configure('database');
 // $app->register(App\Providers\AppServiceProvider::class);
 // $app->register(App\Providers\AuthServiceProvider::class);
 $app->register(App\Providers\EventServiceProvider::class);
+$app->register(VladimirYuldashev\LaravelQueueRabbitMQ\LaravelQueueRabbitMQServiceProvider::class);
 
 /*
 |--------------------------------------------------------------------------
