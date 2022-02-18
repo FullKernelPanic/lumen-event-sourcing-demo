@@ -1,0 +1,86 @@
+version: '3'
+
+networks:
+  localdev:
+    driver: bridge
+
+volumes:
+  logs:
+    driver: local
+
+services:
+  app:
+    container_name: app
+    build:
+      args:
+        user: developer
+        uid: 1000
+      context: .
+      dockerfile: ./_dockerenv/Dockerfile
+    working_dir: /var/www
+    environment:
+      docker: "true"
+    volumes:
+      - .:/var/www
+    networks:
+      - localdev
+
+  webserver:
+    image: nginx:stable-alpine
+    container_name: webserver
+    restart: unless-stopped
+    ports:
+      - '8080:8000'
+    volumes:
+      - ./:/var/www
+      - ./_dockerenv/nginx:/etc/nginx/conf.d
+    networks:
+      - localdev
+
+  appdb:
+    image: mysql:8.0.23
+    container_name: appdb
+    restart: unless-stopped
+    environment:
+      MYSQL_DATABASE: ${DB_PROJECTION_DATABASE}
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_PASSWORD: ${DB_PROJECTION_PASSWORD}
+      MYSQL_USER: ${DB_PROJECTION_USERNAME}
+      SERVICE_TAGS: dev
+      SERVICE_NAME: mysql
+    ports:
+      - '3306:3306'
+    networks:
+      - localdev
+
+  eventstore:
+    image: mysql:8.0.23
+    container_name: eventstore
+    restart: unless-stopped
+    environment:
+      MYSQL_DATABASE: ${DB_EVENTSTORE_DATABASE}
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_PASSWORD: ${DB_EVENTSTORE_PASSWORD}
+      MYSQL_USER: ${DB_EVENTSTORE_USERNAME}
+      SERVICE_TAGS: dev
+      SERVICE_NAME: mysql
+    ports:
+      - '3307:3306'
+    networks:
+      - localdev
+
+  queue:
+    image: rabbitmq:management
+    container_name: queue
+    environment:
+      RABBITMQ_DEFAULT_USER: ${RABBITMQ_USER}
+      RABBITMQ_DEFAULT_PASSWORD: ${RABBITMQ_PASSWORD}
+      RABBITMQ_DEFAULT_VHOST: ${RABBITMQ_VHOST}
+    ports:
+      - '15671:15671'
+      - '15672:15672'
+      - '5671:5671'
+      - '5672:5672'
+    restart: always
+    networks:
+      - localdev
