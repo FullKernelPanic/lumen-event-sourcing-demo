@@ -1,11 +1,11 @@
 {
-    "name": "laravel/lumen",
-    "description": "The Laravel Lumen Framework.",
-    "keywords": ["framework", "laravel", "lumen"],
+    "name": "fullkernelpanic/lumen-event-sourcing-demo",
+    "description": "Demo app for using eventsauce with lumen",
+    "keywords": ["lumen", "eventsauce"],
     "license": "MIT",
     "type": "project",
     "require": {
-        "php": "^7.3|^8.0",
+        "php": "^8.0",
         "laravel/lumen-framework": "^8.3.1"
     },
     "require-dev": {
