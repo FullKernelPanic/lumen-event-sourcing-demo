@@ -13,7 +13,7 @@ class CreateOrdersTable extends Migration
      */
     public function up()
     {
-        Schema::create('orders', function (Blueprint $table) {
+        Schema::connection('app')->create('orders', function (Blueprint $table) {
             $table->id();
             $table->unsignedInteger('user_id')->default(1);
             $table->string('product_name')->default('item 1');
@@ -30,6 +30,6 @@ class CreateOrdersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('orders');
+        Schema::connection('app')->dropIfExists('orders');
     }
 }
