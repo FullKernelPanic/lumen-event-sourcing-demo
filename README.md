@@ -1,21 +1,28 @@
-##Setup
+## Setup
+
 ```
 docker-compose up -d
 docker exec -ti app composer install
 ```
+
 Mysql boots up slowly, may refuse connection on first few attempts.
+
 ```
 docker exec -ti app composer project-setup
 ```
 
-##Example
+## Example
+
 ### Create a project
+
 From a lumen command the aggregate will be called and an event will be stored and dispatched to rabbitmq.
+
 ```
 docker exec -ti app php artisan project:create test_project
 ```
 
 Queue worker needs to be started to retrieve the message from rabbitmq.
+
 ```
 docker exec -ti app php artisan queue:work
 ```
