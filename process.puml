@@ -1,0 +1,28 @@
+@startuml
+
+    actor CLI
+    boundary Lumen
+    database EventStore
+    queue RabbitMQ
+    database App
+
+    group Write
+    CLI -> Lumen : artisan project:create
+    Lumen -> EventStore : insert ProjectCreated
+    Lumen -> RabbitMQ: dispatch EventStored[ProjectCreated]
+    rnote over RabbitMQ
+        event_exchange
+    endnote
+    RabbitMQ -> RabbitMQ : publish message to queue(s)
+    end
+
+    group Projection
+    CLI -> Lumen : artisan queue:work
+    Lumen -> RabbitMQ : listen to new messages
+    rnote over RabbitMQ
+    event_queue
+    endnote
+    RabbitMQ --> Lumen: process EventStored[ProjectCreated]
+    Lumen -> App : insert Project
+    end
+@enduml
