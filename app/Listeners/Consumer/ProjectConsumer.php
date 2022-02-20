@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Listeners;
+namespace App\Listeners\Consumer;
 
 use App\Aggregates\Project\Events\ProjectCreated;
 use App\Models\Project;

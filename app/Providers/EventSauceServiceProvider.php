@@ -6,7 +6,7 @@ namespace App\Providers;
 
 use App\Dispatcher\RabbitMQMessageDispatcher;
 use App\Listeners\EventStoredListener;
-use App\Listeners\ProjectConsumer;
+use App\Listeners\Consumer\ProjectConsumer;
 use EventSauce\EventSourcing\Serialization\ConstructingMessageSerializer;
 use EventSauce\EventSourcing\Serialization\MessageSerializer;
 use EventSauce\EventSourcing\SynchronousMessageDispatcher;
