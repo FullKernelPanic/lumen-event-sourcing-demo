@@ -1,13 +1,23 @@
-### Migration
-
-#### app
-
+#Setup
 ```
-php artisan migrate --database=app --path=/database/migrations/app
+docker-compose up -d
+docker exec -ti app composer install
+```
+Mysql boots up slowly, may refuse connection on first few attempts.
+```
+docker exec -ti app composer project-setup
 ```
 
-#### event_store
+#Example
+## Create project
+From a lumen command the aggregate will be called and an event will be stored and dispatched to rabbitmq.
+```
+docker exec -ti app php artisan project:create test_project
+```
 
+Queue worker needs to be started to retrieve the message from rabbitmq.
 ```
-php artisan migrate --database=event_store --path=/database/migrations/eventstore
+docker exec -ti app php artisan queue:work
 ```
+
+After the commands are executed the app database projects table should contain a new entry.
