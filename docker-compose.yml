@@ -11,6 +11,7 @@ volumes:
 services:
   app:
     container_name: app
+    restart: unless-stopped
     build:
       args:
         user: developer

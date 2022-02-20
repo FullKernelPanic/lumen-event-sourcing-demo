@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Events\EventStored;
 use Laravel\Lumen\Providers\EventServiceProvider as ServiceProvider;
 
 class EventServiceProvider extends ServiceProvider
@@ -17,6 +18,9 @@ class EventServiceProvider extends ServiceProvider
         ],
         \App\Events\OrderCreated::class => [
             \App\Listeners\OrderCreatedListener::class,
+        ],
+        EventStored::class => [
+            \App\Listeners\EventStoredListener::class,
         ],
     ];
 }

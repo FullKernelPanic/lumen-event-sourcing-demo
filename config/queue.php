@@ -46,8 +46,8 @@ return [
             ],
             'options' => [
                 'queue' => [
-                    'exchange' => 'order.fanout',
-                    'exchange_type' => 'fanout',
+                    'exchange' => env('RABBITMQ_EXCHANGE'),
+                    'exchange_type' => env('RABBITMQ_EXCHANGE_TYPE'),
                     'prioritize_delayed_messages' => false,
                     'queue_max_priority' => 10,
                 ],
@@ -85,8 +85,8 @@ return [
     */
 
     'failed' => [
-        'driver' => env('QUEUE_FAILED_DRIVER', 'database-uuids'),
-        'database' => env('DB_CONNECTION', 'mysql'),
+        'driver' => env('QUEUE_FAILED_DRIVER'),
+        'database' => 'app',
         'table' => env('QUEUE_FAILED_TABLE', 'failed_jobs'),
     ],
 
