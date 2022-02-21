@@ -4,9 +4,13 @@ declare(strict_types=1);
 
 namespace App\Providers;
 
+use App\Aggregates\Project\ProjectAggregateRoot;
 use App\Dispatcher\RabbitMQMessageDispatcher;
-use App\Listeners\EventStoredListener;
 use App\Listeners\Consumer\ProjectConsumer;
+use App\Listeners\EventStoredListener;
+use App\Repositories\MessageRepository;
+use App\Repositories\ProjectAggregateRootRepository;
+use EventSauce\EventSourcing\EventSourcedAggregateRootRepository;
 use EventSauce\EventSourcing\Serialization\ConstructingMessageSerializer;
 use EventSauce\EventSourcing\Serialization\MessageSerializer;
 use EventSauce\EventSourcing\SynchronousMessageDispatcher;
@@ -40,5 +44,18 @@ class EventSauceServiceProvider extends ServiceProvider
                 $this->app->get('event_sourcing.message_dispatcher.sync')
             );
         });
+
+        $this->app->bind(
+            ProjectAggregateRootRepository::class,
+            function (): ProjectAggregateRootRepository {
+                return new ProjectAggregateRootRepository(
+                    new EventSourcedAggregateRootRepository(
+                        ProjectAggregateRoot::class,
+                        new MessageRepository($this->app->get(MessageSerializer::class)),
+                        $this->app->get('event_sourcing.message_dispatcher.queue')
+                    )
+                );
+            }
+        );
     }
 }

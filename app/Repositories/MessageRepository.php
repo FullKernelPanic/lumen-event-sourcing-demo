@@ -35,10 +35,12 @@ class MessageRepository implements \EventSauce\EventSourcing\MessageRepository
 
     public function retrieveAll(AggregateRootId $id): Generator
     {
-        $records = EventStore::on('event_store')->where(['aggregate_root_id' => $id->toString()])->get();
+        $records = EventStore::on('event_store')
+            ->where(['aggregate_root_id' => $id->toBinary()])
+            ->get();
 
         foreach ($records as $record) {
-            $message = $this->messageSerializer->unserializePayload(json_decode($record->payload));
+            $message = $this->messageSerializer->unserializePayload(json_decode($record->payload, true));
 
             yield $message;
         }
