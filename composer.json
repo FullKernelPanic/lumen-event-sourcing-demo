@@ -21,7 +21,9 @@
         "psr-4": {
             "App\\": "app/",
             "Database\\Factories\\": "database/factories/",
-            "Database\\Seeders\\": "database/seeders/"
+            "Database\\Seeders\\": "database/seeders/",
+            "Domain\\": "src/Domain/",
+            "EventSourcing\\": "src/EventSourcing/"
         }
     },
     "autoload-dev": {

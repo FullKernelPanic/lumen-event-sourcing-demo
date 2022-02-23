@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace App\Aggregates\Project;
+namespace Domain\Project;
 
-use App\Aggregates\AggregateRootId;
+use EventSourcing\AggregateRootId;
 
 final class ProjectId extends AggregateRootId
 {

@@ -4,14 +4,15 @@ declare(strict_types=1);
 
 namespace App\Repositories;
 
-use App\Aggregates\Event;
 use App\Models\EventStore;
 use EventSauce\EventSourcing\AggregateRootId;
 use EventSauce\EventSourcing\Message;
+use EventSauce\EventSourcing\MessageRepository;
 use EventSauce\EventSourcing\Serialization\MessageSerializer;
+use EventSourcing\Event;
 use Generator;
 
-class MessageRepository implements \EventSauce\EventSourcing\MessageRepository
+class MySQLMessageRepository implements MessageRepository
 {
     public function __construct(private MessageSerializer $messageSerializer)
     {
@@ -28,7 +29,7 @@ class MessageRepository implements \EventSauce\EventSourcing\MessageRepository
                 'aggregate_root_id' => $message->aggregateRootId()->toBinary(),
                 'version' => $message->aggregateVersion(),
                 'payload' => json_encode($this->messageSerializer->serializeMessage($message)),
-                'recorded_at' => $message->timeOfRecording(),
+                'recorded_at' => $message->timeOfRecording()->format('Y-m-d H:i:s.u'),
             ]))->save();
         }
     }

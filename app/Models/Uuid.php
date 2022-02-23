@@ -9,8 +9,8 @@ use Illuminate\Support\Facades\DB;
 
 trait Uuid
 {
-    public static function findByUuid(string $uuid): Builder
+    public static function findByUuid(string $uuid, string $fieldName = 'uuid'): Builder
     {
-        return self::where('uuid', DB::raw('UUID_TO_BIN("' . $uuid . '")'));
+        return self::where($fieldName, DB::raw('UUID_TO_BIN("' . $uuid . '")'));
     }
 }

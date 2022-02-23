@@ -5,6 +5,7 @@ namespace App\Console;
 use App\Console\Commands\ProjectCreate;
 use App\Console\Commands\ProjectDelete;
 use App\Console\Commands\ProjectRename;
+use App\Console\Commands\ProjectSnapshot;
 use Illuminate\Console\Scheduling\Schedule;
 use Laravel\Lumen\Console\Kernel as ConsoleKernel;
 
@@ -19,6 +20,7 @@ class Kernel extends ConsoleKernel
         ProjectCreate::class,
         ProjectDelete::class,
         ProjectRename::class,
+        ProjectSnapshot::class,
     ];
 
     /**

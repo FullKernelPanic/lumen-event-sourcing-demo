@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace App\Aggregates\Project\Events;
+namespace Domain\Project\Aggregate\Events;
 
-use App\Aggregates\Event;
-use App\Aggregates\EventId;
+use EventSourcing\Event;
+use EventSourcing\EventId;
 use EventSauce\EventSourcing\Serialization\SerializablePayload;
 
 class ProjectRenamed extends Event

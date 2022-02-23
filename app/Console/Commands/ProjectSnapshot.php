@@ -5,17 +5,17 @@ declare(strict_types=1);
 
 namespace App\Console\Commands;
 
-use Domain\Project\Command\Delete;
+use Domain\Project\Command\Snapshot;
 use Domain\Project\ProjectId;
 use Illuminate\Console\Command;
 
-class ProjectDelete extends Command
+class ProjectSnapshot extends Command
 {
-    protected $signature = 'project:delete {uuid : Project uuid}';
+    protected $signature = 'project:snapshot {uuid : Project uuid}';
 
-    protected $description = 'Delete a project';
+    protected $description = 'Snapshot project';
 
-    public function __construct(private Delete $deleteCommand)
+    public function __construct(private Snapshot $snapshotCommand)
     {
         parent::__construct();
     }
@@ -26,6 +26,6 @@ class ProjectDelete extends Command
 
         $projectId = ProjectId::fromString($uuid);
 
-        $this->deleteCommand->exec($projectId);
+        $this->snapshotCommand->exec($projectId);
     }
 }

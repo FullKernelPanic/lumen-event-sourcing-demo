@@ -5,7 +5,7 @@ declare(strict_types=1);
 
 namespace App\Console\Commands;
 
-use App\Repositories\ProjectAggregateRootRepository;
+use Domain\Project\Command\Create;
 use Illuminate\Console\Command;
 
 class ProjectCreate extends Command
@@ -14,7 +14,7 @@ class ProjectCreate extends Command
 
     protected $description = 'Create a project';
 
-    public function __construct(private ProjectAggregateRootRepository $aggregateRootRepository)
+    public function __construct(private Create $createCommand)
     {
         parent::__construct();
     }
@@ -23,10 +23,8 @@ class ProjectCreate extends Command
     {
         $name = $this->input->getArgument('name');
 
-        $root = $this->aggregateRootRepository->create();
+        $uuid = $this->createCommand->exec($name);
 
-        $root->create($name);
-
-        $this->aggregateRootRepository->persist($root);
+        $this->info('Project created : ' . $uuid->toString());
     }
 }

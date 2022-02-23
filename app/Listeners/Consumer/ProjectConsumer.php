@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\Listeners\Consumer;
 
-use App\Aggregates\Project\Events\ProjectCreated;
-use App\Aggregates\Project\Events\ProjectDeleted;
-use App\Aggregates\Project\Events\ProjectRenamed;
+use Domain\Project\Aggregate\Events\ProjectCreated;
+use Domain\Project\Aggregate\Events\ProjectDeleted;
+use Domain\Project\Aggregate\Events\ProjectRenamed;
 use App\Models\Project;
 use EventSauce\EventSourcing\EventConsumer;
 use EventSauce\EventSourcing\Message;

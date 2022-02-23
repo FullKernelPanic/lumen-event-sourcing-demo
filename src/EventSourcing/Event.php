@@ -2,8 +2,9 @@
 
 declare(strict_types=1);
 
-namespace App\Aggregates;
+namespace EventSourcing;
 
+use EventSourcing\EventId;
 use EventSauce\EventSourcing\Serialization\SerializablePayload;
 
 abstract class Event implements SerializablePayload

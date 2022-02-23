@@ -1,6 +1,6 @@
 <?php
 
-use App\Providers\EventSauceServiceProvider;
+use App\Providers\EventSourcingServiceProvider;
 use Illuminate\Queue\QueueServiceProvider;
 
 require_once __DIR__ . '/../vendor/autoload.php';
@@ -98,7 +98,7 @@ $app->configure('queue');
 $app->register(App\Providers\EventServiceProvider::class);
 $app->register(VladimirYuldashev\LaravelQueueRabbitMQ\LaravelQueueRabbitMQServiceProvider::class);
 $app->register(QueueServiceProvider::class);
-$app->register(EventSauceServiceProvider::class);
+$app->register(EventSourcingServiceProvider::class);
 
 /*
 |--------------------------------------------------------------------------
