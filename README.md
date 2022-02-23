@@ -1,3 +1,7 @@
+# Event sourcing demo
+The scope of the project is to creat an environment that is event sourced based with queue based event dispatch mechanism, to be able to distribute events for multiple applications if needed.
+Basic process of snapshot feature (which is labeled as a premature optimisation, but to have it in the tool arsenal)
+
 ## Setup
 
 ```
